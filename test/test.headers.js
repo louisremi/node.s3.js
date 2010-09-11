@@ -10,7 +10,7 @@ var AWSSecretAccessKey = 'uV3F3YluFJax1cknvbcGwgjvx4QpvB+leU8dUj2o';
 var testData = [
 	{
 		resource : '/johnsmith/photos/puppy.jpg',
-    objectName: 'photos/puppy.jpg',
+    object: 'photos/puppy.jpg',
 		method : 'GET',
 		header : {
 			'Host': 'johnsmith.s3.amazonaws.com',
@@ -23,7 +23,7 @@ var testData = [
 	},
 	{
 		resource : '/johnsmith/photos/puppy.jpg',
-    objectName: 'photos/puppy.jpg',
+    object: 'photos/puppy.jpg',
 		method : 'PUT',
 		header : {
 			'Content-Type': 'image/jpeg',
@@ -40,7 +40,7 @@ var testData = [
 	// test with no content type
 	{
 		resource : '/johnsmith/',
-    objectName: '',
+    object: '',
 		method : 'GET',
 		header : {
 			'User-Agent': 'Mozilla/5.0',
@@ -57,7 +57,7 @@ var testData = [
 	// instead of having it in the host
 	{
 		resource : '/johnsmith/photos/puppy.jpg',
-    objectName: 'photos/puppy.jpg',
+    object: 'photos/puppy.jpg',
 		method : 'DELETE',
 		header : {
 			'User-Agent': 'dotnet',
@@ -74,7 +74,7 @@ var testData = [
 	// note the use of multiple authors -- test header used more than once & with md5
 	{
 		resource : '/static.johnsmith.net/db-backup.dat.gz',
-    objectName: 'photos/puppy.jpg',
+    object: 'photos/puppy.jpg',
 		method : 'PUT',
 		header : {
 			'User-Agent': 'curl/7.15.5',
@@ -99,7 +99,7 @@ var testData = [
 	//same as above but testing without a port
 	{
 		resource : '/static.johnsmith.net/db-backup.dat.gz',
-    objectName: 'db-backup.dat.gz',
+    object: 'db-backup.dat.gz',
 		method : 'PUT',
 		header : {
 			'User-Agent': 'curl/7.15.5',
@@ -124,7 +124,7 @@ var testData = [
 	// test unicode
 	{
 		resource : '/dictionary/fran%C3%A7ais/pr%c3%a9f%c3%a8re',
-    objectName: 'fran%C3%A7ais/pr%c3%a9f%c3%a8re',
+    object: 'fran%C3%A7ais/pr%c3%a9f%c3%a8re',
 		method : 'GET',
 		header : {
 			'Host': 's3.amazonaws.com',
@@ -153,7 +153,7 @@ exports.testGetStringToSign = function(test){
 		var stringToSign = s3._createStringToSign({
       method: testData[i].method,
       bucket: testData[i].bucket,
-      objectName: testData[i].objectName
+      object: testData[i].object
     }, testData[i].header, testData[i].expectedCanonicalHeaders);
 		test.same(stringToSign, testData[i].expectedStringToSign);
 	}, test);
