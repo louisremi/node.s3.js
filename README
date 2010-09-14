@@ -1,0 +1,6 @@
+I like nuxusr's take on an S3 API for node: he took care of writing an efficient implementation of PUT and GET for large files using streams.
+
+But there are fundamental flows to its implementation:
+- the API is verbose
+- the md5 checksum of files could be calculated on the fly, as they are streamed.
+- you've got a single event-emitter per instance: if you are doing two operations at the same time, you don't know which one finishes first.
