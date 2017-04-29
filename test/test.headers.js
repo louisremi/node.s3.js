@@ -140,16 +140,16 @@ var testData = [
 
 
 //test cananicalized headers
-exports.testGetCanonicalizedAmzHeaders = function(test){
-	executeTestInLoop(function(test,i){
+exports.testGetCanonicalizedAmzHeaders = test => {
+	executeTestInLoop((test, i) => {
 		var result = s3._canonicalizeAmzHeaders(testData[i].header);
 		test.same(result, testData[i].expectedCanonicalHeaders);
 	}, test);
 };
 
 //test the string we sign
-exports.testGetStringToSign = function(test){
-	executeTestInLoop(function(test,i){
+exports.testGetStringToSign = test => {
+	executeTestInLoop((test, i) => {
 		var stringToSign = s3._createStringToSign({
       method: testData[i].method,
       bucket: testData[i].bucket,
@@ -160,8 +160,8 @@ exports.testGetStringToSign = function(test){
 };
 
 //test the signin of strings
-exports.testGetSignature = function(test){
-	executeTestInLoop(function(test,i){
+exports.testGetSignature = test => {
+	executeTestInLoop((test, i) => {
 		var digest = s3._signHeaders(AWSSecretAccessKey, testData[i].expectedStringToSign);
 		test.same('AWS ' + AWSAccessKeyId + ":" + digest, testData[i].authorizationDigest);
 	}, test);
@@ -181,7 +181,7 @@ exports.testGetSignature = function(test){
 var executeTestInLoop = function(testToRun, test){
 	this.s3 = new S3(AWSSecretAccessKey, AWSAccessKeyId);
 	
-	this.s3.on('error', function(err){
+	this.s3.on('error', err => {
 		test.ok(false, err);
 	});
 			
